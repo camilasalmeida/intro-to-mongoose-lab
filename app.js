@@ -10,8 +10,13 @@ const mongoose = require('mongoose')
 //Make the DATABASE CONNECTION  
 //Set up Mongoose and MongoDB Connection
 const connect = async () => {
-    await mongoose.connect(process.env.MONGODB_URI) //import from .env file
-        //console.log('Connected to MOngoDB');
+    try {
+    await mongoose.connect(process.env.MONGODB_URI)             //import from .env file
+        console.log('Connected to MOngoDB');
+    } catch (error) {
+        console.log(error)
+    }
+
     await runQueries()
     await main()
     //await createCustomer()
@@ -23,7 +28,6 @@ const connect = async () => {
         //console.log('Disconnected from MongoDB')
     process.exit()
     }
-
 
 connect()
 /*------------------------------ Query Functions --------------------------------------*/
@@ -43,12 +47,37 @@ const main = async () => {
 //**---------------------------CREATING THE MENU FUNCTION--------------------------------**
 //Create the Menu Function
 const menu = async () => {
-    console.log('What would you like to do?')
-    console.log('1. Create a customer')
-    console.log('2. View all customers')
-    console.log('3. Update a customer')
-    console.log('4. Delete a customer')
-    console.log('5. quit')
+    let choice;
+    do {                                   //do...while. Execute Once: The code inside the do block is executed at least once, regardless of whether the condition is true or false. Condition Check: After executing the block, the condition is checked. If it evaluates to true, the loop runs again; if false, the loop ends.
+        console.log('What would you like to do?')
+        console.log('1. Create a customer')
+        console.log('2. View all customers')
+        console.log('3. Update a customer')
+        console.log('4. Delete a customer')
+        console.log('5. quit')
+
+//Adding the logic to the Menu function
+const choice = prompt('Number of action to run: ')
+
+    if (choice === '1') {
+        await createCustomer();
+    } else if (choice === '2') {
+        await viewAllCustomers();
+    } else if (choice === '3') {
+        await updateCustomer();
+    } else if (choice === '4') {
+        await deleteCustomer();
+    } else if (choice === '5') {
+        console.log('Goodbye!')           //it has to be before disconnecting
+        //await mongoose.connection.close();
+        //process.exit();
+        
+    } else {
+        console.log('Invalid choice, please try again.')
+    }
+
+} while (choice !== '5');                  // Loop continues until the user chooses to quit. Is used to keep the menu active and running until the user decides to quit the application by entering '5'.
+    
 }
 
 //**---------------------------CREATING THE CREATE NEW CUSTOMER FUNCTION--------------------------------**
