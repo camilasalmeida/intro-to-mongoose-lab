@@ -16,7 +16,7 @@ const connect = async () => {
     await main()
     //await createCustomer()
     //await viewAllCustomers()
-    await updateCustomer()
+    //await updateCustomer()
     //await deleteCustomer()
 
     await mongoose.disconnect()
@@ -97,13 +97,14 @@ const updateCustomer = async () => {
     console.log(`The customer data has been updated to: `, updateCustomer)
 }
 
-
 //**-----------------------------CREATING DELETE CUSTOMER FUNCTION--------------------------------**
 const deleteCustomer = async () => {
-    console.log('Deleting a customer')
+    const idToDelete = prompt ('Enter the ID of the customer you want to delete')
+    const removedCostumer = await Todo.findByIdAndDelete(idToDelete)
+    console.log('Customer deleted: ', removedCostumer)
 }
 
 
-
+//**-----------------------------------------------------------------------------------------------**
 //Import our model
 const Todo = require('./models/todo.js')  //We need to give the path to the file.
