@@ -33,16 +33,12 @@ const runQueries = async () => {
     //console.log('Queries running')
 }
 
-
-
 //**---------------------------CREATING THE MAIN FUNCTION--------------------------------**
 //Create the main function which will display a Welcome Message showing a message in the terminal
 const main = async () => {
     console.log('Welcome to the CRM')
     menu()
 }
-
-
 
 //**---------------------------CREATING THE MENU FUNCTION--------------------------------**
 //Create the Menu Function
@@ -61,7 +57,7 @@ const menu = async () => {
 const createCustomer = async () => {
     //console.log('Creating a customer')
     try {
-        const clientName = prompt (`What's is the customer's name?`)
+        const clientName = prompt (`What's the customer's name?`)
         const clientAge = parseInt (prompt(`What's the customer's age?`))  //using parseInt to convert string to integer (it will only return whole numbers).
     
 //Define the todoData object with properties
@@ -103,7 +99,6 @@ const deleteCustomer = async () => {
     const removedCostumer = await Todo.findByIdAndDelete(idToDelete)
     console.log('Customer deleted: ', removedCostumer)
 }
-
 
 //**-----------------------------------------------------------------------------------------------**
 //Import our model
