@@ -14,7 +14,7 @@ const connect = async () => {
         //console.log('Connected to MOngoDB');
     await runQueries()
     await main()
-    //await createCustomer()
+    await createCustomer()
     //await viewAllCustomers()
     //await updateCustomer()
     //await deleteCustomer()
@@ -49,16 +49,39 @@ const menu = async () => {
     console.log('5. quit')
 }
 
-//**------------------------CREATING THE MENU FUNCTIONS--------------------**
+//**----------------------------------CREATING THE MENU FUNCTIONS--------------------------------**
 
+//The create() method adds new documents to our data base. Which is our object here with our schema data, and that will be mapped out with our schema.
 const createCustomer = async () => {
-    console.log('Creating a customer')
+    //console.log('Creating a customer')
+    try {
+        const clientName = prompt (`What's is the customer's name?`)
+        const clientAge = parseInt (prompt(`What's the customer's age?`))  //using parseInt to convert string to integer (it will only return whole numbers).
+    
+//Define the todoData object with properties
+const todoData = {
+    name: clientName,
+    age: clientAge
 }
 
+//This is the operation performed on the database = action of creating a new document in the database using the Mongoose create() method.
+//The result is logged to verify that the new client was successfully created.
+const todo = await Todo.create(todoData)                                     //the first `todo` is just a variable. It's the document returned, and it's the newly created document based on our schema.
+    console.log(`New Client: `, todo)                                    //the second `Todo` is the model itself that's interacting with the database. 
+
+} catch (error) {
+    console.log('Error: ', error)
+}
+}
+
+//**------------------------------CREATING THE VIEW ALL CUSTOMERS FUNCTIONS-----------------------**
 
 const viewAllCustomers = async () => {
     console.log('Viewing all customers')
 }
+
+
+
 
 const updateCustomer = async () => {
     console.log('Updating a customer')
@@ -67,6 +90,7 @@ const updateCustomer = async () => {
 const deleteCustomer = async () => {
     console.log('Deleting a customer')
 }
+
 
 
 //Import our model
